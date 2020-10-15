@@ -1,0 +1,24 @@
+<template>
+  <div class="Body">
+    <Loader/>
+    
+  </div>
+</template>
+
+<script>
+import Loader from './Loader.vue'
+export default {
+  name: 'Body',
+  props: {
+    
+  },
+  components:{
+    Loader
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+    
+</style>
