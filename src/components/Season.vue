@@ -103,7 +103,6 @@ export default {
         ],
         yAxes: [
           {
-            
             gridLines: {
               display: false
             },
@@ -126,21 +125,19 @@ export default {
     let barOptionsToss = {
       scales: {
         xAxes: [
-          
-            {
+          {
             gridLines: {
               display: false
             },
             ticks: {
               fontColor: "wheat", // this here
-              min:0,
+              min: 0,
               beginAtZero: true
             }
           }
         ],
         yAxes: [
           {
-            
             gridLines: {
               display: false
             },
@@ -226,12 +223,13 @@ export default {
 
   methods: {
     fetchData() {
-      let link = "https://ipldash-back.herokuapp.com/season/" + this.$route.params.id;
+      let link =
+        "https://ipldash-back.herokuapp.com/season/" + this.$route.params.id;
       axios
         .get(link)
         .then(response => {
           this.seasonInfo = response.data.dataArray;
-          
+
           this.msg = null;
           let mapVenue = matchFreq(this.seasonInfo);
           let mapToss = teamStandings(this.seasonInfo);
@@ -320,7 +318,6 @@ export default {
           };
 
           this.rederBar = true;
-          
         })
         .catch(er => {
           console.log(er);
