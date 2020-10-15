@@ -13,9 +13,11 @@
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
     "localforage": "^1.9.0",
+    "serve": "^11.3.2",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
-    "vue-router": "^3.4.6"
+    "vue-router": "^3.4.6",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
