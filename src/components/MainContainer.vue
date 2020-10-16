@@ -38,12 +38,13 @@ export default {
 <style scoped>
     .Header{
         width:100%;
-        height: 10vh;
-        background-color: #015417;
+        height: 100px;
+        background-image: linear-gradient(#32e0c4, #0d7377);
         display: flex;
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        padding: 10px;
         
     }
     .link{

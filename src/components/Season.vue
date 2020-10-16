@@ -611,7 +611,15 @@ h1 {
   margin: auto;
   width: 60vw;
   display: flex;
+  
+  
+  padding: 20px;
+  
+}
+.bar{
+  box-shadow: 10px 10px 100px #000;
   border: 2px solid wheat;
+  background-color: #222;
 }
 .pie-container {
   margin-top: 100px;
@@ -623,7 +631,8 @@ h1 {
   border: 2px solid wheat;
   width: 40%;
   margin: 3%;
-
+  background-color: #222;
+  box-shadow: 10px 10px 100px #000;
   flex: 1;
   padding: 2%; /* (100 - 2*width - 4*margin )/4   */
 }

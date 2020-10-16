@@ -412,11 +412,15 @@ export default {
   position: absolute;
   z-index: -1;
 }
+.buttons-container:nth-child(2){
+  margin: -100px 0px;
+  background-color: wheat;
+}
 
 @media (min-width: 200px) and (max-width: 979px) {
   .buttons-container{
-    width: 80%;
-    margin: 0 10%;
+    width: 100%;
+    margin: 0 ;
   }
 }
 </style>

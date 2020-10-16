@@ -16,6 +16,7 @@
 import Button from "./Button.vue";
 
 
+
 export default {
   name: "Buttons",
   data(){
@@ -31,7 +32,7 @@ export default {
   methods: {},
 
   created() {
-   
+  
   }
 };
 </script>
@@ -57,9 +58,12 @@ export default {
 .card:nth-child(9) {
     margin-left: 0px;
 }
+.card{
+  
+}
 @media (min-width: 200px) and (max-width: 979px) {
   .button-container {
-    width: 90%;
+    width: 100%;
     
     text-decoration: none;
     display: grid;
