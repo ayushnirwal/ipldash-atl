@@ -63,6 +63,7 @@ import Pie from "./chartComponets/Pie";
 import matchFreq from "./calcFunctions/matchFreq.js";
 import teamStandings from "./calcFunctions/teamStandings.js";
 import batBowlRate from "./calcFunctions/batBowlRate.js";
+import localStorage from "localforage";
 export default {
   name: "Season",
   componenets: {
@@ -196,9 +197,9 @@ export default {
       pieFieldData: undefined,
       pieFieldOptions,
       pieGraphWidth,
-      show: true,
+      show: true, // show loader if true
       graphWidth,
-      rederBar: false,
+      rederBar: false, // show data if true
       seasonInfo: null,
       msg: "Getting Data from server"
     };
@@ -218,11 +219,145 @@ export default {
       this.rederBar = true;
     });
 
-    this.fetchData();
+    let year = Number(this.$route.params.id) + 2008;
+    console.log("year",year);
+
+    this.checkSeasonCache(year).then((res)=>{
+      if(res){
+        console.log("found cache year" , year);
+        this.loadData(year);
+      }
+      else{
+        console.log("no cache have to fetch for " , year);
+        this.fetchData();
+      }
+    })
   },
 
   methods: {
+    checkSeasonCache(year){
+      return new Promise((resolve)=>{
+        console.log("checking for :" + String(year));
+        localStorage.getItem(String(year)).then((a)=>{
+            if(a == undefined){
+              resolve(false);
+            }
+            else{
+              resolve(true);
+            }
+      })
+      })
+    },
+    loadData(year) {
+      
+      console.log("loading for year ", year);
+
+      
+      localStorage.getItem(String(year))
+        .then(response => {
+          
+          this.seasonInfo = response;
+
+          this.msg = null;
+          let mapVenue = matchFreq(this.seasonInfo);
+          let mapToss = teamStandings(this.seasonInfo);
+          let batBowl = batBowlRate(this.seasonInfo);
+          let labelsVenue = Object.keys(mapVenue);
+          let dataVenue = Object.values(mapVenue);
+
+          this.barDataVenue = {
+            labels: labelsVenue, // initialized in fetchData
+            datasets: [
+              {
+                label: "No of matches",
+                data: dataVenue, // initialized in fetchData
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1
+              }
+            ]
+          };
+
+          this.barDataToss = {
+            labels: mapToss.labels, // initialized in fetchData
+            datasets: [
+              {
+                label: "win",
+                data: mapToss.win, // initialized in fetchData
+                backgroundColor: "rgba(0, 149, 255, 0.2)",
+
+                borderColor: "rgba(0, 149, 255, 1)",
+                borderWidth: 1
+              },
+              {
+                label: "loss",
+                data: mapToss.loss, // initialized in fetchData
+                backgroundColor: "rgba(255, 99, 132, 0.2)",
+
+                borderColor: "rgba(255, 99, 132, 1)",
+                borderWidth: 1
+              }
+            ]
+          };
+
+          this.pieBatOptions.title.text = batBowl.batHeavy.name;
+
+          this.pieBatData = {
+            labels: ["Choose Bat", "Choose Bowl"],
+
+            datasets: [
+              {
+                label: "Toss Decision",
+                data: [
+                  batBowl.batHeavy.chooseBat,
+                  batBowl.batHeavy.chooseField
+                ],
+                backgroundColor: [
+                  "rgba(255, 99, 132,0.2)",
+                  "rgba(54, 162, 235,0.2)"
+                ],
+                borderColor: ["rgba(255, 99, 132,1)", "rgba(54, 162, 235,1)"],
+                hoverOffset: 4
+              }
+            ]
+          };
+
+          this.pieFieldOptions.title.text = batBowl.fieldHeavy.name;
+
+          this.pieFieldData = {
+            labels: ["Choose Bat", "Choose Bowl"],
+
+            datasets: [
+              {
+                label: "Toss Decision",
+                data: [
+                  batBowl.fieldHeavy.chooseBat,
+                  batBowl.fieldHeavy.chooseField
+                ],
+                backgroundColor: [
+                  "rgba(255, 99, 132,0.2)",
+                  "rgba(54, 162, 235,0.2)"
+                ],
+                borderColor: ["rgba(255, 99, 132,1)", "rgba(54, 162, 235,1)"],
+                hoverOffset: 4
+              }
+            ]
+          };
+
+          this.rederBar = true;
+          this.show = false;
+        })
+        .catch(er => {
+          console.log(er);
+          this.msg = "Sorry, Server Bro is not working today";
+        });
+    },
+
     fetchData() {
+      
+
+
       let link =
         "https://ipldash-back.herokuapp.com/season/" + this.$route.params.id;
       axios
@@ -318,6 +453,7 @@ export default {
           };
 
           this.rederBar = true;
+          this.show = false;
         })
         .catch(er => {
           console.log(er);
@@ -491,6 +627,12 @@ h1 {
   flex: 1;
   padding: 2%; /* (100 - 2*width - 4*margin )/4   */
 }
+.charts-container {
+  position: absolute;
+  z-index: -1;
+  width: 80%;
+  margin-left: 10%;
+}
 @media (min-width: 200px) and (max-width: 979px) {
   h1 {
     font-size: 20px;
@@ -500,6 +642,13 @@ h1 {
   }
   .pie {
     width: 90%;
+  }
+  .bar {
+    width: 90%;
+  }
+  .charts-container {
+    width: 90%;
+    margin: 5%;
   }
 }
 </style>

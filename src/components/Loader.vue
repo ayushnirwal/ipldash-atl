@@ -25,6 +25,7 @@
 <script>
 import axios from "axios";
 import Buttons from "./Buttons.vue";
+import localStorage from 'localforage';
 export default {
   name: "Loader",
   data() {
@@ -44,8 +45,12 @@ export default {
     Buttons
   },
   methods: {
+    //fetchData fetches data for first page /main
     fetchData() {
-      axios
+
+      return new Promise((resolve,reject)=>{
+        // console.log("fetching main data")
+        axios
         .get("https://ipldash-back.herokuapp.com/main")
         .then(response => {
           let key = Object.keys(response.data.map);
@@ -79,16 +84,147 @@ export default {
           this.t3 = t3;
           this.show = false;
           this.msg = null;
+
+
+          console.log("fetching main data: complete");
+          resolve(key);
+          localStorage.setItem("main",{map:response.data.map , bestTeamNames:teamNames});
+          
+          
         })
         .catch(er => {
           console.log(er);
           this.msg = "Sorry, Server Bro is not working today";
+          reject();
         });
+      })
+
+      
+    },
+    fetchSeasonsData(years){
+      years.forEach((year)=>{
+
+        this.checkSeasonCache(year)
+        .then((res)=>{
+          if(res){
+            console.log("found cache for year: " , year);
+          }
+          else{
+            let link = "https://ipldash-back.herokuapp.com/season/" + (Number(year)-2008)
+          // console.log("fetching data for year : " + year + "using link " + link);
+          axios
+          .get(link)
+          .then((response) => {
+            // console.log("got ");
+            console.log("fetch complete for : ",response.data.dataArray[0].season);
+            localStorage.setItem(year,response.data.dataArray);
+          });
+          }
+        })
+
+
+        
+      });
+    },
+    checkMainCache(){
+      return new Promise((resolve)=>{
+        localStorage.getItem("main").then((a)=>{
+            if(a == undefined){
+              resolve(false);
+            }
+            else{
+              resolve(true);
+            }
+      })
+      })
+      
+    },
+    checkSeasonCache(year){
+      return new Promise((resolve)=>{
+        localStorage.getItem(year).then((a)=>{
+            if(a == undefined){
+              resolve(false);
+            }
+            else{
+              resolve(true);
+            }
+      })
+      })
+    },
+    loadData(){
+      return new Promise((resolve,reject)=>{
+        // console.log("fetching main data")
+        localStorage.getItem("main")
+        .then(response => {
+          console.log("loading from cache");
+          let key = Object.keys(response.map);
+          let teamNames = response.bestTeamNames;
+          let l1 = {};
+          let l2 = {};
+          let l3 = {};
+          let t1 = [];
+          let t2 = [];
+          let t3 = [];
+
+          key.forEach((ele,index)=>{
+            if(index >=0 && index <=3)
+              l1[ele]= response.map[ele];
+              t1.push(teamNames[index]);
+            if(index >=4 && index <=7)
+              l2[ele]= response.map[ele];
+              t2.push(teamNames[index]);
+            if(index >=8)
+              l3[ele]= response.map[ele];
+              t3.push(teamNames[index]);
+          })
+
+          
+          
+          this.l1 = l1;
+          this.l2 = l2;
+          this.l3 = l3;
+          this.t1 = t1;
+          this.t2 = t2;
+          this.t3 = t3;
+          this.show = false;
+          this.msg = null;
+
+
+          console.log("loading main data: complete");
+          resolve(key);
+          localStorage.setItem("main",{map:response.map , bestTeamNames:teamNames});
+          
+          
+        })
+        .catch(er => {
+          console.log(er);
+          this.msg = "Sorry, Server Bro is not working today";
+          reject();
+        });
+      })
     }
+
   },
+  
 
   created() {
-    this.fetchData();
+    this.checkMainCache()
+    .then((res)=>{
+      if (res){
+        console.log("found cached data");
+        this.loadData()
+        .then((years)=>this.fetchSeasonsData(years))
+      }
+      else{
+        console.log("no cache have to fetch");
+        this.fetchData()
+        .then((years)=>this.fetchSeasonsData(years))
+      }
+    })
+    
+    
+    
+    
   }
 };
 </script>
@@ -154,6 +290,7 @@ export default {
   -webkit-animation: ball 2s ease-in-out 0.2s infinite;
   animation: ball 2s ease-in-out 0.2s infinite;
 }
+
 
 @-webkit-keyframes ball {
   0% {
@@ -227,9 +364,14 @@ export default {
 .buttons-container{
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  
+  position: absolute;
+  z-index: -1;
 }
 
 @media (min-width: 200px) and (max-width: 979px) {
+  .buttons-container{
+    width: 80%;
+    margin: 0 10%;
+  }
 }
 </style>

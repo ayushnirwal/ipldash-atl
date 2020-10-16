@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import RRlogo from "../assets/RR.png";
-import CSKlogo from "../assets/CSK.png";
-import SHlogo from "../assets/SH.png";
-import MIlogo from "../assets/MI.png";
-import KPlogo from "../assets/KP.png";
-import DClogo from "../assets/DC.png";
-import KKRlogo from "../assets/KKR.png";
+import RRlogo from "../assets/RR-min.png";
+import CSKlogo from "../assets/CSK-min.png";
+import SHlogo from "../assets/SH-min.png";
+import MIlogo from "../assets/MI-min.png";
+import KPlogo from "../assets/KP-min.png";
+import DClogo from "../assets/DC-min.png";
+import KKRlogo from "../assets/KKR-min.png";
 export default {
   name: "Button",
   data() {
