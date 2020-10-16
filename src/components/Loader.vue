@@ -26,6 +26,7 @@
 import axios from "axios";
 import Buttons from "./Buttons.vue";
 import localStorage from 'localforage';
+
 export default {
   name: "Loader",
   data() {
@@ -108,6 +109,7 @@ export default {
         .then((res)=>{
           if(res){
             console.log("found cache for year: " , year);
+
           }
           else{
             let link = "https://ipldash-back.herokuapp.com/season/" + (Number(year)-2008)
@@ -129,11 +131,26 @@ export default {
     checkMainCache(){
       return new Promise((resolve)=>{
         localStorage.getItem("main").then((a)=>{
+
+
             if(a == undefined){
               resolve(false);
             }
             else{
-              resolve(true);
+              this.checkDate()
+              .then((res)=>{
+                if (res){
+                  //if true update required
+                  resolve(false);
+                }
+                else{
+                  resolve(true);
+                }
+              })
+              .catch(()=>{
+                resolve(false);
+              })
+              
             }
       })
       })
@@ -149,6 +166,34 @@ export default {
               resolve(true);
             }
       })
+      })
+    },
+    checkDate(){
+      return new Promise((resolve)=>{
+        axios
+        .get("https://ipldash-back.herokuapp.com/lastUpdate")
+        .then((response)=>{
+          
+
+          let date = Date.now();
+          let clientDate = new Date(date);
+          let serverDate = new Date(response.data.date)
+          
+          if (serverDate > clientDate){
+            console.log("update required");
+            resolve(true);
+          }
+          else{
+            console.log("no update required");
+            resolve(false)
+          }
+          resolve(false);
+        })
+        .catch((er)=>{
+          console.log(er);
+          resolve(false);
+        })
+
       })
     },
     loadData(){
