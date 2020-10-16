@@ -64,17 +64,25 @@ export default {
 @media (min-width: 200px) and (max-width: 979px) {
   .button-container {
     width: 100%;
-    
+    margin: 0;
     text-decoration: none;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    
+    overflow: hidden;
   }
   .card{
     width: 75%;
     margin-left: -10px;
     padding: 5%;
+    
+  }
+  .card:focus-within~.card, .card:hover~.card {
+    transform: none;
+  }
+
+  .card:hover {
+      transform: none;
   }
 }
 </style>
