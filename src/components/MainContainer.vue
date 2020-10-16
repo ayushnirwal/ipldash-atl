@@ -13,8 +13,10 @@
 
 <script>
 import VueRouter from 'vue-router'
-import Body from './Body.vue'
-import Season from './Season.vue'
+
+const Body = () => import('./Body');
+const Season = () => import('./Season');
+
 const routes = [
   { path: '/', component: Body },
   { path: '/season/:id', component: Season }

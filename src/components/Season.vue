@@ -58,8 +58,9 @@
 </template>
 <script>
 import axios from "axios";
-import Bar from "./chartComponets/Bar";
-import Pie from "./chartComponets/Pie";
+const Bar = () => import ('./chartComponets/Bar');
+const Pie = () => import ('./chartComponets/Pie');
+
 import matchFreq from "./calcFunctions/matchFreq.js";
 import teamStandings from "./calcFunctions/teamStandings.js";
 import batBowlRate from "./calcFunctions/batBowlRate.js";

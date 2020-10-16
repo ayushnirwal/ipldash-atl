@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Loader from './Loader.vue'
+const Loader = () => import ('./Loader');
 export default {
   name: 'Body',
   props: {

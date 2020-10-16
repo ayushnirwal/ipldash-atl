@@ -24,8 +24,10 @@
 
 <script>
 import axios from "axios";
-import Buttons from "./Buttons.vue";
 import localStorage from 'localforage';
+const Buttons = () => import ('./Buttons');
+
+
 
 export default {
   name: "Loader",

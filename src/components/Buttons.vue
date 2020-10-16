@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Button from "./Button.vue";
+const Button = () => import ('./Button');
 
 
 
