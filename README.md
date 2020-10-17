@@ -24,8 +24,9 @@ bonus point stuff:
   - vue does that (run: "vue pwa" then its done, not the most optimized implementation but sure the simplest).
   - included benifits with "vue pwa" makes it offline usable with cached data using localforage.
  
-lighthouse results:
+
 ![Alt text](https://github.com/codingcarrots20/ipldash-atl/blob/main/screenshots/localhost.png)
+![Alt text](https://github.com/codingcarrots20/ipldash-atl/blob/main/screenshots/heroku.png)
 
 
 
