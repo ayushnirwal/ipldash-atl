@@ -49,7 +49,7 @@ export default {
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        padding: 10px;
+        
         
     }
     .link{

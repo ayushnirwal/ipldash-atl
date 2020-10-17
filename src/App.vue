@@ -20,11 +20,13 @@ export default {
 *{
   margin: 0;
   padding: 0;
-  box-sizing: content-box;
+  
   
 }
 body{
   background-color: #333;
+  
 }
+
 
 </style>

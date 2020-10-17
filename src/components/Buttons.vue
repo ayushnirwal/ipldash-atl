@@ -44,7 +44,8 @@ export default {
 .button-container {
   
   width: 90%;
-  margin: 0 5%;
+  
+  padding: 50px 5%;
   text-decoration: none;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -64,16 +65,17 @@ export default {
 @media (min-width: 200px) and (max-width: 979px) {
   .button-container {
     width: 100%;
-    margin: 0;
+    padding: 50px 0px;
+    
     text-decoration: none;
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(1, 1fr);
-    overflow: hidden;
+    overflow-x: hidden;
   }
   .card{
-    width: 75%;
-    margin-left: -10px;
+    width: 70%;
+    margin: 0 10%;
     padding: 5%;
     
   }

@@ -77,15 +77,21 @@ export default {
 
     let width = window.innerWidth;
     let graphWidth = 0;
+    let barTickFontSize = 0;
+    //let pieTickFontSize = 0;
     let pieTitleFontSize = 0;
     let pieGraphWidth = 0;
 
     if (width > 0 && width <= 500) {
-      graphWidth = 400;
-      pieTitleFontSize = 22;
+      graphWidth = 200;
+      barTickFontSize = 10;
+      //pieTickFontSize = 20;
+      pieTitleFontSize = 20;
       pieGraphWidth = 400;
     } else {
       graphWidth = 200;
+      barTickFontSize = 25;
+      //pieTickFontSize = 25;
       pieTitleFontSize = 32;
       pieGraphWidth = 400;
     }
@@ -110,7 +116,8 @@ export default {
             },
             ticks: {
               fontColor: "wheat", // this here
-              beginAtZero: true
+              beginAtZero: true,
+              fontSize:barTickFontSize,
             }
           }
         ]
@@ -134,7 +141,8 @@ export default {
             ticks: {
               fontColor: "wheat", // this here
               min: 0,
-              beginAtZero: true
+              beginAtZero: true,
+              
             }
           }
         ],
@@ -145,7 +153,8 @@ export default {
             },
             ticks: {
               fontColor: "wheat", // this here
-              beginAtZero: true
+              beginAtZero: true,
+              fontSize:barTickFontSize,
             }
           }
         ]
@@ -162,7 +171,8 @@ export default {
       legend: {
         labels: {
           // This more specific font property overrides the global property
-          fontColor: "wheat"
+          fontColor: "wheat",
+          fontSize:22,
         }
       },
       title: {
@@ -176,7 +186,8 @@ export default {
       legend: {
         labels: {
           // This more specific font property overrides the global property
-          fontColor: "wheat"
+          fontColor: "wheat",
+          fontSize:22,
         }
       },
       title: {
@@ -207,18 +218,6 @@ export default {
   },
   props: [],
   created() {
-    window.addEventListener("resize", () => {
-      this.rederBar = false;
-
-      let width = window.innerWidth;
-      if (width > 0 && width <= 500) {
-        this.graphWidth = 400;
-      } else {
-        this.graphWidth = 200;
-      }
-
-      this.rederBar = true;
-    });
 
     let year = Number(this.$route.params.id) + 2008;
     console.log("year",year);
