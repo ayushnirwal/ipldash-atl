@@ -1,7 +1,11 @@
 # Ipl Dashboard
 Task from atlan
 using data from = https://www.kaggle.com/saurav9786/indian-premier-league-match-analysis 
+
+
 heroku hosted frontend = https://ipldash-atl.herokuapp.com/
+
+
 backend express API = https://ipldash-back.herokuapp.com/
 
 # Tools and lib used!
@@ -21,6 +25,7 @@ bonus point stuff:
   - included benifits with "vue pwa" makes it offline usable with cached data using localforage.
  
 lighthouse results:
+![Alt text](/../main/screeshots/localhost.png?raw=true "Optional Title")
 
 
 
