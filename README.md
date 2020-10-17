@@ -26,7 +26,7 @@ bonus point stuff:
  
 # lighthouse - localhost
 ![Alt text](https://github.com/codingcarrots20/ipldash-atl/blob/main/screenshots/localhost.png)
-# lighthouse - herouku
+# lighthouse - heroku
 ![Alt text](https://github.com/codingcarrots20/ipldash-atl/blob/main/screenshots/heroku.png)
 
 
