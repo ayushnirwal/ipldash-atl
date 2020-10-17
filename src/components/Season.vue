@@ -58,13 +58,14 @@
 </template>
 <script>
 import axios from "axios";
-const Bar = () => import ('./chartComponets/Bar');
-const Pie = () => import ('./chartComponets/Pie');
+const Bar = () => import("./chartComponets/Bar");
+const Pie = () => import("./chartComponets/Pie");
 
 import matchFreq from "./calcFunctions/matchFreq.js";
 import teamStandings from "./calcFunctions/teamStandings.js";
 import batBowlRate from "./calcFunctions/batBowlRate.js";
 import localStorage from "localforage";
+
 export default {
   name: "Season",
   componenets: {
@@ -77,21 +78,15 @@ export default {
 
     let width = window.innerWidth;
     let graphWidth = 0;
-    let barTickFontSize = 0;
-    //let pieTickFontSize = 0;
     let pieTitleFontSize = 0;
     let pieGraphWidth = 0;
 
     if (width > 0 && width <= 500) {
-      graphWidth = 200;
-      barTickFontSize = 10;
-      //pieTickFontSize = 20;
-      pieTitleFontSize = 20;
+      graphWidth = 400;
+      pieTitleFontSize = 22;
       pieGraphWidth = 400;
     } else {
       graphWidth = 200;
-      barTickFontSize = 25;
-      //pieTickFontSize = 25;
       pieTitleFontSize = 32;
       pieGraphWidth = 400;
     }
@@ -116,8 +111,7 @@ export default {
             },
             ticks: {
               fontColor: "wheat", // this here
-              beginAtZero: true,
-              fontSize:barTickFontSize,
+              beginAtZero: true
             }
           }
         ]
@@ -141,8 +135,7 @@ export default {
             ticks: {
               fontColor: "wheat", // this here
               min: 0,
-              beginAtZero: true,
-              
+              beginAtZero: true
             }
           }
         ],
@@ -153,8 +146,7 @@ export default {
             },
             ticks: {
               fontColor: "wheat", // this here
-              beginAtZero: true,
-              fontSize:barTickFontSize,
+              beginAtZero: true
             }
           }
         ]
@@ -171,8 +163,7 @@ export default {
       legend: {
         labels: {
           // This more specific font property overrides the global property
-          fontColor: "wheat",
-          fontSize:22,
+          fontColor: "wheat"
         }
       },
       title: {
@@ -186,8 +177,7 @@ export default {
       legend: {
         labels: {
           // This more specific font property overrides the global property
-          fontColor: "wheat",
-          fontSize:22,
+          fontColor: "wheat"
         }
       },
       title: {
@@ -218,44 +208,39 @@ export default {
   },
   props: [],
   created() {
-
     let year = Number(this.$route.params.id) + 2008;
-    console.log("year",year);
+    console.log("year", year);
 
-    this.checkSeasonCache(year).then((res)=>{
-      if(res){
-        console.log("found cache year" , year);
+    this.checkSeasonCache(year).then(res => {
+      if (res) {
+        console.log("found cache year", year);
         this.loadData(year);
-      }
-      else{
-        console.log("no cache have to fetch for " , year);
+      } else {
+        console.log("no cache have to fetch for ", year);
         this.fetchData();
       }
-    })
+    });
   },
 
   methods: {
-    checkSeasonCache(year){
-      return new Promise((resolve)=>{
+    checkSeasonCache(year) {
+      return new Promise(resolve => {
         console.log("checking for :" + String(year));
-        localStorage.getItem(String(year)).then((a)=>{
-            if(a == undefined){
-              resolve(false);
-            }
-            else{
-              resolve(true);
-            }
-      })
-      })
+        localStorage.getItem(String(year)).then(a => {
+          if (a == undefined) {
+            resolve(false);
+          } else {
+            resolve(true);
+          }
+        });
+      });
     },
     loadData(year) {
-      
       console.log("loading for year ", year);
 
-      
-      localStorage.getItem(String(year))
+      localStorage
+        .getItem(String(year))
         .then(response => {
-          
           this.seasonInfo = response;
 
           this.msg = null;
@@ -355,9 +340,6 @@ export default {
     },
 
     fetchData() {
-      
-
-
       let link =
         "https://ipldash-back.herokuapp.com/season/" + this.$route.params.id;
       axios
@@ -611,12 +593,10 @@ h1 {
   margin: auto;
   width: 60vw;
   display: flex;
-  
-  
+
   padding: 20px;
-  
 }
-.bar{
+.bar {
   box-shadow: 10px 10px 100px #000;
   border: 2px solid wheat;
   background-color: #222;
