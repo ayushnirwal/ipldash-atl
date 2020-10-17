@@ -78,15 +78,18 @@ export default {
 
     let width = window.innerWidth;
     let graphWidth = 0;
+    let barTickFontSize = 0;
     let pieTitleFontSize = 0;
     let pieGraphWidth = 0;
 
     if (width > 0 && width <= 500) {
       graphWidth = 400;
+      barTickFontSize = 12;
       pieTitleFontSize = 22;
       pieGraphWidth = 400;
     } else {
       graphWidth = 200;
+      barTickFontSize = 18;
       pieTitleFontSize = 32;
       pieGraphWidth = 400;
     }
@@ -111,7 +114,8 @@ export default {
             },
             ticks: {
               fontColor: "wheat", // this here
-              beginAtZero: true
+              beginAtZero: true,
+              fontSize:barTickFontSize,
             }
           }
         ]
@@ -146,7 +150,8 @@ export default {
             },
             ticks: {
               fontColor: "wheat", // this here
-              beginAtZero: true
+              beginAtZero: true,
+              fontSize:barTickFontSize,
             }
           }
         ]
