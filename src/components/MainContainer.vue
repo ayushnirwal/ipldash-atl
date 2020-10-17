@@ -3,7 +3,10 @@
     <div class="Header">
       
       <h1 class="MainHeading"> IPL Dash </h1>
-      <router-link class = "link" to="/" > Home</router-link>
+      <nav class="nav">
+        <router-link class = "link" to="/" > Home</router-link>
+        <a href="https://github.com/codingcarrots20/ipldash-atl" class="link"> Github </a>
+      </nav>
 
       
     </div>
@@ -53,6 +56,14 @@ export default {
         color: wheat;
         font-family: Arial, Helvetica, sans-serif;
         text-decoration: none;
+        flex:1;
+        color: #222;
+        font-size: 22px;
+        font-weight: bolder;
+        transition: 250ms;
+    }
+    .link:hover{
+      color: wheat;
     }
     .MainHeading{
         color: wheat;
@@ -60,5 +71,9 @@ export default {
         font-weight: 1000;
         flex: 1;
         margin-top:30px;
+    }
+    .nav{
+      width: 100%;
+      display: flex;
     }
 </style>
