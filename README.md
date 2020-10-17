@@ -25,7 +25,7 @@ bonus point stuff:
   - included benifits with "vue pwa" makes it offline usable with cached data using localforage.
  
 lighthouse results:
-![Alt text](/../main/screeshots/localhost.png?raw=true "Optional Title")
+![Alt text](https://github.com/codingcarrots20/ipldash-atl/blob/main/screenshots/localhost.png)
 
 
 
